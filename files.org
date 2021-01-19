@@ -1,0 +1,146 @@
+#+TITLE: Practical
+
+* Practical 19-01-2021
+** WAP in C to print first 25 numbers of fibonacci  sequence. fiboonacci sequence is 0 1 1 2 3 5 8 13...
+
+#+BEGIN_SRC C :tangle 1.c
+#include <stdio.h>
+
+void fib(int count) {
+    int a = 0, b = 1, c;
+    for(int i =0; i < count; i++) {
+        printf("%d\n", a);
+        c = a + b;
+        a = b;
+        b = c;
+    }
+}
+int main() {
+    fib(25);
+    return 0;
+}
+#+END_SRC
+
+** WAP to print the prime factors of the number given by user.
+#+BEGIN_SRC C :tangle 2.c
+#include <stdio.h>
+#include <math.h>
+
+void p_factors(int n) {
+    for(int i = 2; i <= sqrt(n); i++) {
+        if (n % i == 0) {
+            printf("%d\n", i);
+        }
+    }
+}
+
+int main() {
+    int n;
+    printf("Enter the number: ");
+    scanf("%d\n", &n);
+    p_factors(n);
+    return 0;
+}
+#+END_SRC
+
+#+RESULTS:
+: Enter the number:
+
+** WAP to calculate the sum of even of numbers and odd numbers separately, within a given range inputted by user.
+#+BEGIN_SRC C :tangle 3.c
+#include <stdio.h>
+
+int sum_even(int start, int end) {
+    int sum = 0;
+    for(int i = start; i <= end; i++) {
+        if (i % 2 == 0) {
+            sum += i;
+        }
+    }
+    return sum;
+}
+
+int sum_odd(int start, int end) {
+    int sum = 0;
+    for(int i = start; i <= end; i++) {
+        if (i % 2 == 1) {
+            sum += i;
+        }
+    }
+    return sum;
+}
+
+
+int main() {
+    int start, end;
+    printf("Enter Range(start..end): ");
+    scanf("%d..%d", &start, &end);
+    printf("Sum of even is %d, sum of odd is %d", sum_even(start, end), sum_odd(start, end));
+    return 0;
+}
+#+END_SRC
+
+** WAP to calculate the overtime pay of 10 employees. overtime is paid according to Rs 12 per hour after 40 hours of working.
+#+BEGIN_SRC C :tangle 4.c
+#include <stdio.h>
+
+int overtime_pay(int hours) {
+    hours -= 40;
+    if(hours < 0) return 0;
+    return hours * 12 * 10; // for 10 employees
+}
+
+int main() {
+    int hours;
+    printf("Enter no of hours: ");
+    scanf("%d", &hours);
+    int pay = overtime_pay(hours);
+    printf("Overtime pay is %d", pay);
+    return 0;
+}
+#+END_SRC
+
+** WAP in C to find out whether a given number is Armstrong number or Perfect number.
+#+BEGIN_SRC C :tangle 5.c
+#include <stdio.h>
+
+int is_perfect(int n) {
+    int sum = 0;
+    for(int i = 1; i <= sqrt(n); i++) {
+        if (n % i == 0) {
+            sum += i;
+            sum += n / i;
+        }
+    }
+
+    return sum == n;
+}
+
+int is_armstrong(int n) {
+    int n_copy = n;
+    int sum = 0;
+    for(; n > 0; n / 10) {
+        int dig = n % 10;
+        sum += dig * dig * dig;
+    }
+    return sum == n_copy;
+}
+
+int main() {
+    int n;
+    printf("Enter n: ");
+    scanf("%d", &n);
+    int a = is_armstrong(n),
+        p = is_perfect(n);
+    if (a && p) {
+        printf("%d is both armstrong and perfect\n", n);
+    } else if(a) {
+        printf("%d is armstrong\n", n);
+    } else if(p) {
+        printf("%d is perfect\n", n);
+    } else {
+        printf("%d is niether armstrong nor perfect\n", n);
+    }
+    return 0;
+}
+#+END_SRC
